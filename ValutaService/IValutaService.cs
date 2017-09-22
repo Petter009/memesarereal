@@ -9,37 +9,45 @@ namespace ValutaService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
     [ServiceContract]
-    public interface IService1
+    public interface IValutaService
     {
         [OperationContract]
-        string GetData(int value);
+        decimal exchange_DNK_to_EUR(decimal sum);
 
         [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
+        decimal find_exchange_rate(string iso_code);
+
+        [OperationContract]
+        List<Currency> GetAllRates();
 
         // TODO: Add your service operations here
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
     // You can add XSD files into the project. After building the project, you can directly use the data types defined there, with the namespace "ValutaService.ContractType".
+
     [DataContract]
-    public class CompositeType
+    public class Currency
     {
-        bool boolValue = true;
-        string stringValue = "Hello ";
+        [DataMember]
+        public string Name { get; set; }
 
         [DataMember]
-        public bool BoolValue
+        public string ISOcode { get; set; }
+
+        [DataMember]
+        public decimal ExchangeRate { get; set; }
+
+        public Currency(string name, string isocode, decimal rate)
         {
-            get { return boolValue; }
-            set { boolValue = value; }
+            this.Name = name;
+            this.ISOcode = isocode;
+            this.ExchangeRate = rate;
         }
 
-        [DataMember]
-        public string StringValue
+        public override string ToString()
         {
-            get { return stringValue; }
-            set { stringValue = value; }
+            return $"Name: {Name} - ISO: {ISOcode} - Exchange Rate: {ExchangeRate}";
         }
     }
 }
