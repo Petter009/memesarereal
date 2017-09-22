@@ -30,9 +30,17 @@ namespace ValutaService
             pricelist.Add(SEK);
         }
 
+
         public decimal exchange_DNK_to_EUR(decimal sum)
         {
             return sum/(745.9900m / 100);
+        }
+
+        public decimal exchange_isofrom_to_isoto(string isofrom, string isoto, decimal amount)
+        {
+            decimal firstrate = find_exchange_rate(isofrom);
+            decimal secondrate = find_exchange_rate(isoto);
+            return amount / (secondrate / firstrate);
         }
 
         public decimal find_exchange_rate(string iso_code)
@@ -72,5 +80,6 @@ namespace ValutaService
         {
             return pricelist;
         }
+
     }
 }

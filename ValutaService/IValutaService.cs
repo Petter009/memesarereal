@@ -20,6 +20,10 @@ namespace ValutaService
         [OperationContract]
         List<Currency> GetAllRates();
 
+        [OperationContract]
+        decimal exchange_isofrom_to_isoto(string isofrom, string isoto, decimal amount);
+
+
         // TODO: Add your service operations here
     }
 
